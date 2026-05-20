@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.deckerpw.flateditor
+package com.deckerpw.flateditor.gui.components
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextAreaUI
 import org.fife.ui.rtextarea.ConfigurableCaret

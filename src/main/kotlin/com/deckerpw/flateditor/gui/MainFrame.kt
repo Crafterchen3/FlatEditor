@@ -1,14 +1,22 @@
-package com.deckerpw.flateditor
+package com.deckerpw.flateditor.gui
 
-import com.formdev.flatlaf.FlatDarkLaf
+import com.deckerpw.flateditor.gui.components.FlatEditorPane
+import com.deckerpw.flateditor.poolApp
 import com.formdev.flatlaf.FlatLaf
 import com.formdev.flatlaf.FlatLightLaf
 import com.formdev.flatlaf.intellijthemes.FlatOneDarkIJTheme
 import java.awt.BorderLayout
 import java.awt.Dimension
 import java.awt.Insets
-import javax.swing.*
-
+import javax.swing.ButtonGroup
+import javax.swing.JFrame
+import javax.swing.JMenu
+import javax.swing.JMenuBar
+import javax.swing.JMenuItem
+import javax.swing.JPanel
+import javax.swing.JRadioButtonMenuItem
+import javax.swing.JToolBar
+import javax.swing.UIManager
 
 class MainFrame: JFrame("Flat Editor") {
 

@@ -1,13 +1,8 @@
-package com.deckerpw.flateditor
+package com.deckerpw.flateditor.gui.components
 
 import org.fife.ui.rsyntaxtextarea.TextEditorPane
-import org.fife.ui.rsyntaxtextarea.Token
 import org.fife.ui.rtextarea.RTextAreaUI
 import java.awt.Color
-import javax.swing.UIManager
-import javax.swing.text.BadLocationException
-import kotlin.math.max
-import kotlin.math.min
 
 class FlatSyntaxTextArea: TextEditorPane() {
 

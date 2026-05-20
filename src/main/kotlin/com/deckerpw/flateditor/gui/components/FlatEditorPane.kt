@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.deckerpw.flateditor
+package com.deckerpw.flateditor.gui.components
 
 import com.formdev.flatlaf.fonts.jetbrains_mono.FlatJetBrainsMonoFont
 import com.formdev.flatlaf.util.FontUtils
@@ -25,7 +25,6 @@ import org.fife.ui.rsyntaxtextarea.TextEditorPane
 import org.fife.ui.rtextarea.RTextArea
 import org.fife.ui.rtextarea.RTextScrollPane
 import java.awt.BorderLayout
-import java.awt.Color
 import java.awt.Font
 import java.beans.PropertyChangeEvent
 import javax.swing.BorderFactory
