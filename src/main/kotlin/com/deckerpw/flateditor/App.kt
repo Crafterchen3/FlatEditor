@@ -1,6 +1,7 @@
 package com.deckerpw.flateditor
 
 import com.deckerpw.poolbox.PoolApp
+import com.deckerpw.poolbox.config.stringConfig
 
 val VERSION = (System.getProperty("com.deckerpw.flateditor.VERSION") ?: "0").apply {
     println("Version: $this")
@@ -8,3 +9,5 @@ val VERSION = (System.getProperty("com.deckerpw.flateditor.VERSION") ?: "0").app
 const val IDENTIFIER = "com.deckerpw.flateditor"
 val poolApp = PoolApp(VERSION,IDENTIFIER)
 private val config = poolApp.config
+
+var theme: String by config.stringConfig("theme","com.formdev.flatlaf.FlatDarkLaf")

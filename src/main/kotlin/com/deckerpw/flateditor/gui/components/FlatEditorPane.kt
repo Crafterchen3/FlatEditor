@@ -37,13 +37,13 @@ import javax.swing.UIManager
  *
  * @author Karl Tauber
  */
-class FlatEditorPane
+open class FlatEditorPane
 
     : JPanel(BorderLayout()) {
     private val editorPanel: JPanel
     private val scrollPane: RTextScrollPane
     // create text area
-    private val textArea: FlatSyntaxTextArea = FlatSyntaxTextArea()
+    val textArea: FlatSyntaxTextArea = FlatSyntaxTextArea()
     private val errorStrip: ErrorStrip
 
     init {
