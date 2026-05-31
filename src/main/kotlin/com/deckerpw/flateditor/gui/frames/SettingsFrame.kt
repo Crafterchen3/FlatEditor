@@ -1,5 +1,7 @@
 package com.deckerpw.flateditor.gui.frames
 
+import com.deckerpw.flateditor.applyLookAndFeel
+import com.deckerpw.flateditor.closeApp
 import com.deckerpw.flateditor.theme
 import com.formdev.flatlaf.FlatClientProperties
 import com.formdev.flatlaf.FlatDarkLaf
@@ -26,11 +28,20 @@ import javax.swing.JScrollPane
 import javax.swing.JTabbedPane
 import javax.swing.UIManager
 import javax.swing.border.EmptyBorder
+import kotlin.system.exitProcess
 
-class SettingsFrame: JFrame("Settings") {
+class SettingsFrame(parent: JFrame): JFrame("Settings") {
 
     private val applyList = mutableListOf<() -> (Unit)>()
     private var needsRestart = false
+
+    data class Theme(val name: String, val className: String)
+
+    val themes = listOf(
+        Theme("Light", FlatLightLaf::class.qualifiedName!!),
+        Theme("Dark", FlatDarkLaf::class.qualifiedName!!),
+        Theme("One Dark", FlatOneDarkIJTheme::class.qualifiedName!!),
+    )
 
     val applyButton = JButton("Apply").apply {
         isEnabled = false
@@ -42,7 +53,7 @@ class SettingsFrame: JFrame("Settings") {
     init {
         rootPane.putClientProperty("JRootPane.titleBarHeight",40)
         rootPane.putClientProperty(FlatClientProperties.STYLE,
-            $$"TitlePane.unifiedBackground: true;"
+            "TitlePane.unifiedBackground: true;"
         )
 
         jMenuBar = JMenuBar().apply {
@@ -55,7 +66,7 @@ class SettingsFrame: JFrame("Settings") {
             border = BorderFactory.createMatteBorder(0, 0, 1, 0, UIManager.getColor("Separator.foreground"))
             tabPlacement = JTabbedPane.LEFT
             putClientProperty(FlatClientProperties.STYLE,
-                $$"tabInsets: 6,20,6,20;"
+                "tabInsets: 6,35,6,35;"
             )
             addTab("Project", JScrollPane(JPanel().apply {
                 border = EmptyBorder(8,8,8,8)
@@ -64,28 +75,14 @@ class SettingsFrame: JFrame("Settings") {
             addTab("Themes", JPanel(BorderLayout()).apply {
                 border = EmptyBorder(8,8,8,8)
 
-                add(JList(arrayOf(
-                    "Light",
-                    "Dark",
-                    "One Dark"
-                )).apply {
-                    selectedIndex = when(theme){
-                        FlatLightLaf::class.qualifiedName -> 0
-                        FlatDarkLaf::class.qualifiedName -> 1
-                        FlatOneDarkIJTheme::class.qualifiedName -> 2
-                        else -> 0
-                    }
-                    addListSelectionListener { event ->
-                        applyList.add{
-                            theme = when(selectedIndex){
-                                0 -> FlatLightLaf::class.qualifiedName
-                                1 -> FlatDarkLaf::class.qualifiedName
-                                2 -> FlatOneDarkIJTheme::class.qualifiedName
-                                else -> FlatDarkLaf::class.qualifiedName
-                            } ?: "com.formdev.flatlaf.FlatDarkLaf"
+                add(JList(themes.map { it.name }.toTypedArray()).apply {
+                    selectedIndex = themes.indexOfFirst { it.className == theme }
+                    addListSelectionListener {
+                        addApplyFunction{
+                            theme = themes[this.selectedIndex].className
                             needsRestart = true
+                            applyLookAndFeel()
                         }
-                        applyButton.isEnabled = true
                     }
                 })
             })
@@ -109,7 +106,8 @@ class SettingsFrame: JFrame("Settings") {
 
         defaultCloseOperation = DISPOSE_ON_CLOSE
         setSize(800,600)
-        setLocationRelativeTo(null)
+        setLocationRelativeTo(parent)
+        iconImage = parent.iconImage
         isVisible = true
     }
 
@@ -119,16 +117,20 @@ class SettingsFrame: JFrame("Settings") {
         applyButton.isEnabled = false
     }
 
-    fun tryClose(){
-        if (needsRestart)
-            JOptionPane.showMessageDialog(this,"The App needs to restart to apply some changes!")
-        dispose()
+    fun addApplyFunction(func: () -> (Unit)){
+        applyList.add(func)
+        applyButton.isEnabled = true
     }
 
-}
+    fun tryClose(){
+        if (needsRestart)
+            when(JOptionPane.showConfirmDialog(this, "The App needs to restart to apply some changes!\nExit now?")){
+                0 -> closeApp()
+                1 ->  dispose()
+                else -> {}
+            }
+        else
+            dispose()
+    }
 
-fun main() {
-    FlatDarkLaf.setup()
-    UIManager.put( "TitlePane.unifiedBackground", false);
-    SettingsFrame()
 }

@@ -3,15 +3,7 @@ package com.deckerpw.flateditor.lang
 import org.apache.logging.log4j.util.Supplier
 import java.util.concurrent.CompletableFuture
 
-private var _instance: TaskScheduler? = null;
-
-val taskScheduler: TaskScheduler get() {
-    if (_instance == null)
-        _instance = TaskScheduler()
-    return _instance!!
-}
-
-class TaskScheduler internal constructor(){
+class TaskScheduler{
 
     private val compilerScheduler = LimitedScheduler(1)
 

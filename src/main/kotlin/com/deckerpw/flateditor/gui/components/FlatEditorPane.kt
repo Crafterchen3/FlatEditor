@@ -93,7 +93,7 @@ open class FlatEditorPane
     }
 
     fun updateTheme() {
-        val font: Font = createEditorFont(0)
+        val font: Font = createEditorFont(2)
 
         textArea.setFont(font)
         textArea.setBackground(UIManager.getColor("FlatEditorPane.background"))
@@ -127,7 +127,7 @@ open class FlatEditorPane
     companion object {
         const val DIRTY_PROPERTY: String = TextEditorPane.DIRTY_PROPERTY
 
-        private fun createEditorFont(sizeIncr: Int): Font {
+        fun createEditorFont(sizeIncr: Int): Font {
             val size = UIManager.getFont("defaultFont").getSize() + sizeIncr
             var font = FontUtils.getCompositeFont(FlatJetBrainsMonoFont.FAMILY, Font.PLAIN, size)
             if (isFallbackFont(font)) {
