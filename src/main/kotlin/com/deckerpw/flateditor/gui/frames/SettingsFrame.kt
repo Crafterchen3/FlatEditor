@@ -6,6 +6,7 @@ import com.deckerpw.flateditor.theme
 import com.formdev.flatlaf.FlatClientProperties
 import com.formdev.flatlaf.FlatDarkLaf
 import com.formdev.flatlaf.FlatLightLaf
+import com.formdev.flatlaf.intellijthemes.FlatNordIJTheme
 import com.formdev.flatlaf.intellijthemes.FlatOneDarkIJTheme
 import org.intellij.lang.annotations.JdkConstants
 import java.awt.BorderLayout
@@ -41,6 +42,7 @@ class SettingsFrame(parent: JFrame): JFrame("Settings") {
         Theme("Light", FlatLightLaf::class.qualifiedName!!),
         Theme("Dark", FlatDarkLaf::class.qualifiedName!!),
         Theme("One Dark", FlatOneDarkIJTheme::class.qualifiedName!!),
+        Theme("Nord", FlatNordIJTheme::class.qualifiedName!!),
     )
 
     val applyButton = JButton("Apply").apply {
@@ -124,8 +126,11 @@ class SettingsFrame(parent: JFrame): JFrame("Settings") {
 
     fun tryClose(){
         if (needsRestart)
-            when(JOptionPane.showConfirmDialog(this, "The App needs to restart to apply some changes!\nExit now?")){
-                0 -> closeApp()
+            when(JOptionPane.showConfirmDialog(this, "The App needs to restart to apply some changes.\nExit now?")){
+                0 -> {
+                    dispose()
+                    closeApp()
+                }
                 1 ->  dispose()
                 else -> {}
             }

@@ -47,8 +47,10 @@ open class FlatEditorPane
     private val errorStrip: ErrorStrip
 
     init {
-        textArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA)
         textArea.markOccurrences = true
+        textArea.tabSize = 4
+        textArea.isAutoIndentEnabled = true
+        textArea.tabsEmulated = true
 
         //		textArea.addParser( new FlatThemeParser() );
 //		textArea.setUseColorOfColorTokens( true );

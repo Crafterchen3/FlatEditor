@@ -70,7 +70,7 @@ class JavaCompiler(val project: Project) {
                 try {
                     val processBuilder = ProcessBuilder(
                         listOf(
-                            "java", "-cp", ".", mainClass
+                            "java", "-cp", "../../lib/*;.", mainClass
                         )
                     )
                     processBuilder.directory(dir)
@@ -79,7 +79,6 @@ class JavaCompiler(val project: Project) {
                     val process = processBuilder.start()
 
                     process.inputStream.bufferedReader().forEachLine { line ->
-                        println("[Class Output] $line")
                         log.addLine(line)
                     }
 

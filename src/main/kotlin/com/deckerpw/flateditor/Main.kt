@@ -15,8 +15,8 @@ fun main() {
     FlatLaf.registerCustomDefaultsSource("com.deckerpw.flateditor")
     applyLookAndFeel()
     UIManager.put( "TitlePane.unifiedBackground", false);
-    //StartFrame()
-    Project(File("run/picasso"), "App")
+    StartFrame()
+    //Project(File("run/picasso"), "App")
     //UIManager.put("Tree.showDefaultIcon", false)
 
 //    main()
@@ -34,5 +34,5 @@ fun applyLookAndFeel() {
 }
 
 fun closeApp(){
-    activeProjects.forEach { it.closeProject() }
+    activeProjects.forEach { it.closeProject(false) }
 }

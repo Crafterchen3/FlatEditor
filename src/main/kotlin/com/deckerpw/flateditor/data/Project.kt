@@ -1,8 +1,10 @@
 package com.deckerpw.flateditor.data
 
+import com.deckerpw.flateditor.gui.components.EditorTab
 import com.deckerpw.flateditor.gui.components.LogViewer
 import com.deckerpw.flateditor.gui.components.toolbarButton
 import com.deckerpw.flateditor.gui.frames.ProjectFrame
+import com.deckerpw.flateditor.gui.frames.StartFrame
 import com.deckerpw.flateditor.lang.TaskScheduler
 import com.deckerpw.flateditor.lang.compiler.JavaCompiler
 import java.io.File
@@ -49,6 +51,10 @@ class Project(val dir: File, val mainClass: String){
         activeProjects.add(this)
     }
 
+    fun saveAll(){
+        projectFrame.tabbedPane.components.map { it as? EditorTab }.forEach { it?.save() }
+    }
+
     fun focusBuildLog(){
         terminalTabbedPane.selectedIndex = 0
     }
@@ -57,8 +63,12 @@ class Project(val dir: File, val mainClass: String){
         terminalTabbedPane.selectedIndex = 1
     }
 
-    fun closeProject() {
+    fun closeProject(remove: Boolean = true) {
         projectFrame.dispose()
-        activeProjects.remove(this)
+        if (remove) {
+            activeProjects.remove(this)
+            if (activeProjects.isEmpty())
+                StartFrame()
+        }
     }
 }

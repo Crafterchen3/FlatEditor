@@ -1,9 +1,12 @@
 package com.deckerpw.flateditor
 
+import com.deckerpw.flateditor.data.ProjectData
 import com.deckerpw.poolbox.PoolApp
 import com.deckerpw.poolbox.config.booleanConfig
 import com.deckerpw.poolbox.config.intConfig
 import com.deckerpw.poolbox.config.stringConfig
+import org.json.JSONObject
+import java.io.File
 
 val VERSION = (System.getProperty("com.deckerpw.flateditor.VERSION") ?: "0").apply {
     println("Version: $this")
