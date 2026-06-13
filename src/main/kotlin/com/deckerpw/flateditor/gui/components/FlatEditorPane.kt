@@ -15,6 +15,7 @@
  */
 package com.deckerpw.flateditor.gui.components
 
+import com.deckerpw.flateditor.lang.TypeRegistry
 import com.formdev.flatlaf.fonts.jetbrains_mono.FlatJetBrainsMonoFont
 import com.formdev.flatlaf.util.FontUtils
 import org.fife.ui.rsyntaxtextarea.ErrorStrip
