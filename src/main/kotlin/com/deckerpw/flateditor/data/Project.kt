@@ -8,12 +8,19 @@ import com.deckerpw.flateditor.gui.frames.StartFrame
 import com.deckerpw.flateditor.lang.TaskScheduler
 import com.deckerpw.flateditor.lang.compiler.JavaCompiler
 import java.io.File
+import javax.swing.JOptionPane
 import javax.swing.JTabbedPane
 
 val activeProjects = mutableListOf<Project>()
 
-class Project(val dir: File, val mainClass: String){
+class Project(val dir: File, private var _mainClass: String? = null){
 
+    val mainClass: String get() {
+        if (_mainClass == null){
+            _mainClass = JOptionPane.showInputDialog("Enter Main Class")
+        }
+        return _mainClass!!
+    }
     val taskScheduler = TaskScheduler()
     val buildLogViewer = LogViewer().apply {
         toolBar.apply {

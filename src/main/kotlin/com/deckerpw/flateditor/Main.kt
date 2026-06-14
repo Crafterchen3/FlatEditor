@@ -2,19 +2,22 @@ package com.deckerpw.flateditor
 
 import com.deckerpw.flateditor.data.Project
 import com.deckerpw.flateditor.data.activeProjects
-import com.deckerpw.flateditor.gui.components.EditorTab
-import com.deckerpw.flateditor.gui.frames.ProjectFrame
 import com.deckerpw.flateditor.gui.frames.StartFrame
-import com.formdev.flatlaf.FlatDarkLaf
 import com.formdev.flatlaf.FlatLaf
 import java.io.File
+import javax.swing.JFileChooser
 import javax.swing.UIManager
+import kotlin.properties.Delegates
 
-fun main() {
+private var _simple = false;
+val simple: Boolean get() = _simple
+
+fun main(args: Array<String>) {
     //System.setProperty("sun.java2d.uiScale","1.4")
     FlatLaf.registerCustomDefaultsSource("com.deckerpw.flateditor")
     applyLookAndFeel()
     UIManager.put( "TitlePane.unifiedBackground", false);
+    _simple = args.contains("simple")
     StartFrame()
     //Project(File("run/picasso"), "App")
     //UIManager.put("Tree.showDefaultIcon", false)

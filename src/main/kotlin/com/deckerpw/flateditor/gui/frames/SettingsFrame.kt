@@ -8,6 +8,9 @@ import com.formdev.flatlaf.FlatDarkLaf
 import com.formdev.flatlaf.FlatLightLaf
 import com.formdev.flatlaf.intellijthemes.FlatNordIJTheme
 import com.formdev.flatlaf.intellijthemes.FlatOneDarkIJTheme
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMTMaterialDarkerIJTheme
+import com.formdev.flatlaf.themes.FlatMacDarkLaf
+import com.formdev.flatlaf.themes.FlatMacLightLaf
 import org.intellij.lang.annotations.JdkConstants
 import java.awt.BorderLayout
 import java.awt.Color
@@ -41,8 +44,11 @@ class SettingsFrame(parent: JFrame): JFrame("Settings") {
     val themes = listOf(
         Theme("Light", FlatLightLaf::class.qualifiedName!!),
         Theme("Dark", FlatDarkLaf::class.qualifiedName!!),
+        Theme("MacOS Light", FlatMacLightLaf::class.qualifiedName!!),
+        Theme("MacOS Dark", FlatMacDarkLaf::class.qualifiedName!!),
         Theme("One Dark", FlatOneDarkIJTheme::class.qualifiedName!!),
         Theme("Nord", FlatNordIJTheme::class.qualifiedName!!),
+        Theme("Material Darker", FlatMTMaterialDarkerIJTheme::class.qualifiedName!!),
     )
 
     val applyButton = JButton("Apply").apply {

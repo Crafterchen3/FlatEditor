@@ -1,7 +1,5 @@
 package com.deckerpw.flateditor.lang
 
-import com.deckerpw.flateditor.lang.java.JavaSupportConfig
-import com.deckerpw.flateditor.lang.java.javaCompletionProvider
 import com.formdev.flatlaf.extras.FlatSVGIcon
 import org.fife.ui.autocomplete.BasicCompletion
 import org.fife.ui.autocomplete.CompletionProvider
@@ -26,12 +24,16 @@ class TypeRegistry private constructor(){
                 "md","markdown")
             put(SyntaxConstants.SYNTAX_STYLE_JSON, FlatSVGIcon("com/deckerpw/flateditor/icons/json.svg"),
                 "json")
-            put(SyntaxConstants.SYNTAX_STYLE_JAVA, javaCompletionProvider(JavaSupportConfig(JavaSupportConfig.runtimeJdkHome())), FlatSVGIcon("com/deckerpw/flateditor/icons/class.svg"),
+            put(SyntaxConstants.SYNTAX_STYLE_JAVA, FlatSVGIcon("com/deckerpw/flateditor/icons/class.svg"),
                 "java",)
             put(SyntaxConstants.SYNTAX_STYLE_NONE, FlatSVGIcon("com/deckerpw/flateditor/icons/text.svg"),
                 "txt")
             put(SyntaxConstants.SYNTAX_STYLE_PROPERTIES_FILE, FlatSVGIcon("com/deckerpw/flateditor/icons/properties.svg"),
                 "props","properties")
+            put(SyntaxConstants.SYNTAX_STYLE_CSS, FlatSVGIcon("com/deckerpw/flateditor/icons/any_type.svg"),
+                "css")
+            put(SyntaxConstants.SYNTAX_STYLE_JAVASCRIPT, FlatSVGIcon("com/deckerpw/flateditor/icons/any_type.svg"),
+                "js")
             putDisabled(FlatSVGIcon("com/deckerpw/flateditor/icons/javaClass.svg"),
                 "class")
             putDisabled(FlatSVGIcon("com/deckerpw/flateditor/icons/archive.svg"),
