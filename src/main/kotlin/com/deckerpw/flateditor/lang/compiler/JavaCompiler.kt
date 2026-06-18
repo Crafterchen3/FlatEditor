@@ -70,7 +70,7 @@ class JavaCompiler(val project: Project) {
                 try {
                     val processBuilder = ProcessBuilder(
                         listOf(
-                            "java", "-cp", "../../lib/*;.", mainClass
+                            Paths.get(System.getProperty("java.home"),"bin/java").toString(), "-cp", "../../lib/*;.", mainClass
                         )
                     )
                     processBuilder.directory(dir)
