@@ -21,7 +21,7 @@ import javax.swing.*
 import kotlin.system.exitProcess
 
 
-class ProjectFrame(val project: Project) : JFrame("Flat Editor") {
+class ProjectFrame(val project: Project) : JFrame("${project.dir.name} - Flat Editor") {
 
     val tabbedPane = JTabbedPane().apply {
         putClientProperty("JTabbedPane.tabCloseCallback", IntConsumer { tabIndex: Int ->

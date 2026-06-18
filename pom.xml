@@ -6,7 +6,7 @@
 
     <groupId>com.deckerpw.mc</groupId>
     <artifactId>FlatEditor</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -134,7 +134,7 @@
 
                     <!-- runtime image -->
                     <type>APP_IMAGE</type>
-                    <destination>${project.build.directory}/msis</destination>
+                    <destination>${project.build.directory}/msis/${project.version}</destination>
                 </configuration>
             </plugin>
         </plugins>
