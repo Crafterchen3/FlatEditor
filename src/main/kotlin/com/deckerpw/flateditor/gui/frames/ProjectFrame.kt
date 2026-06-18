@@ -20,7 +20,6 @@ import java.awt.event.MouseEvent
 import java.io.File
 import java.util.function.IntConsumer
 import javax.swing.*
-import kotlin.system.exitProcess
 
 
 class ProjectFrame(val project: Project) : JFrame("${project.dir.name} - Flat Editor") {
@@ -151,8 +150,7 @@ class ProjectFrame(val project: Project) : JFrame("${project.dir.name} - Flat Ed
         addComponentListener(object : ComponentListener {
             override fun componentResized(e: ComponentEvent?) {
                 if (extendedState == NORMAL) {
-                    // Nur dann überschreiben wir unsere Variablen!
-                    normalWidth = width;
+                    normalWidth = width
                     normalHeight = height
                 }
             }
@@ -180,7 +178,6 @@ class ProjectFrame(val project: Project) : JFrame("${project.dir.name} - Flat Ed
 
             border = BorderFactory.createMatteBorder(0, 0, 0, 1, UIManager.getColor("Separator.foreground"))
         }, BorderLayout.WEST)
-//        add(textArea, BorderLayout.CENTER)
         isVisible = true
     }
 
