@@ -15,6 +15,8 @@ import java.awt.BorderLayout
 import java.awt.Font
 import java.awt.event.ComponentEvent
 import java.awt.event.ComponentListener
+import java.awt.event.MouseAdapter
+import java.awt.event.MouseEvent
 import java.io.File
 import java.util.function.IntConsumer
 import javax.swing.*
@@ -29,6 +31,17 @@ class ProjectFrame(val project: Project) : JFrame("${project.dir.name} - Flat Ed
             this.remove(tabIndex)
         })
         putClientProperty("JTabbedPane.tabClosable", true)
+        addMouseListener(object : MouseAdapter() {
+            override fun mouseClicked(e: MouseEvent?) {
+                super.mouseClicked(e)
+                if (e != null) {
+                    val index = indexAtLocation(e.x,e.y)
+                    if (index != -1 && e.button == MouseEvent.BUTTON2)
+                        removeTabAt(index)
+                }
+
+            }
+        })
     }
     var normalWidth = Layout.width
     var normalHeight = Layout.height
@@ -171,9 +184,9 @@ class ProjectFrame(val project: Project) : JFrame("${project.dir.name} - Flat Ed
         isVisible = true
     }
 
-    fun addFile(file: File){
-        tabbedPane.components.map { it as? EditorTab }.forEach { if (it?.file?.path == file.path) return  }
-        tabbedPane.addTab(file.nameWithoutExtension, TypeRegistry.getIcon(file.extension),EditorTab(project,file))
+    fun addFile(file: File) {
+        tabbedPane.components.map { it as? EditorTab }.forEach { if (it?.file?.path == file.path) return }
+        tabbedPane.addTab(file.nameWithoutExtension, TypeRegistry.getIcon(file.extension), EditorTab(project, file))
     }
 
     override fun dispose() {
