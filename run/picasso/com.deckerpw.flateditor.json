@@ -1,13 +1,0 @@
-{
-  "layout.maximized": false,
-  "layout.outerDivider": 721,
-  "layout.height": 973,
-  "layout.width": 1502,
-  "theme": "com.formdev.flatlaf.FlatDarkLaf",
-  "layout.innerDivider": 200,
-  "obj" : [
-    "steam.exe",
-    "Discord.exe",
-    "EpicGamesLauncher.exe"
-  ]
-}
