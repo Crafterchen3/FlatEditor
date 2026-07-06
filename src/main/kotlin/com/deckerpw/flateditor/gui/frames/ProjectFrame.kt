@@ -3,6 +3,7 @@ package com.deckerpw.flateditor.gui.frames
 import com.deckerpw.flateditor.Layout
 import com.deckerpw.flateditor.closeApp
 import com.deckerpw.flateditor.data.Project
+import com.deckerpw.flateditor.fontScale
 import com.deckerpw.flateditor.gui.components.EditorTab
 import com.deckerpw.flateditor.gui.components.FlatFileExplorer
 import com.deckerpw.flateditor.gui.components.toolbarButton
@@ -13,21 +14,23 @@ import com.formdev.flatlaf.extras.FlatSVGIcon
 import com.formdev.flatlaf.extras.components.FlatButton
 import java.awt.BorderLayout
 import java.awt.Font
-import java.awt.event.ComponentEvent
-import java.awt.event.ComponentListener
-import java.awt.event.MouseAdapter
-import java.awt.event.MouseEvent
+import java.awt.event.*
 import java.io.File
 import java.util.function.IntConsumer
 import javax.swing.*
+import kotlin.math.max
 
 
 class ProjectFrame(val project: Project) : JFrame("${project.dir.name} - Flat Editor") {
 
     val tabbedPane = JTabbedPane().apply {
-        putClientProperty("JTabbedPane.tabCloseCallback", IntConsumer { tabIndex: Int ->
-            (this.getComponent(tabIndex) as? EditorTab)?.save()
+        fun removeTab(tabIndex: Int) {
+            (this.getComponent(tabIndex) as? EditorTab)?.dispose()
             this.remove(tabIndex)
+        }
+
+        putClientProperty("JTabbedPane.tabCloseCallback", IntConsumer { tabIndex: Int ->
+            removeTab(tabIndex)
         })
         putClientProperty("JTabbedPane.tabClosable", true)
         addMouseListener(object : MouseAdapter() {
@@ -36,7 +39,7 @@ class ProjectFrame(val project: Project) : JFrame("${project.dir.name} - Flat Ed
                 if (e != null) {
                     val index = indexAtLocation(e.x,e.y)
                     if (index != -1 && e.button == MouseEvent.BUTTON2)
-                        removeTabAt(index)
+                        removeTab(index)
                 }
 
             }
@@ -122,6 +125,22 @@ class ProjectFrame(val project: Project) : JFrame("${project.dir.name} - Flat Ed
                     addActionListener {
                         closeApp()
                     }
+                })
+            })
+            add(JMenu("View").apply {
+                add(JMenuItem("Increase Font Size").apply {
+                    addActionListener {
+                        fontScale++
+                        EditorTab.updateThemeForAll()
+                    }
+                    accelerator = KeyStroke.getKeyStroke(KeyEvent.VK_PLUS, InputEvent.CTRL_DOWN_MASK)
+                })
+                add(JMenuItem("Decrease Font Size").apply {
+                    addActionListener {
+                        fontScale = max(2,fontScale-1)
+                        EditorTab.updateThemeForAll()
+                    }
+                    accelerator = KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, InputEvent.CTRL_DOWN_MASK)
                 })
             })
             add(JMenu("Help").apply {

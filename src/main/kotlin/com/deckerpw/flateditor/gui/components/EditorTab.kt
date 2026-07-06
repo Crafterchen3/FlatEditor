@@ -2,18 +2,20 @@ package com.deckerpw.flateditor.gui.components
 
 import com.deckerpw.flateditor.data.Project
 import com.deckerpw.flateditor.lang.TypeRegistry
-import com.formdev.flatlaf.util.UIScale
-//import org.fife.rsta.ac.LanguageSupportFactory
-//import org.fife.rsta.ac.java.JavaCompletionProvider
-//import org.fife.rsta.ac.java.JavaLanguageSupport
-import org.fife.ui.autocomplete.AutoCompletion
-import org.fife.ui.rsyntaxtextarea.SyntaxConstants
 import java.io.File
 
 class EditorTab(val project: Project, val file: File) : FlatEditorPane() {
 
+    companion object{
+        val tabs = mutableListOf<EditorTab>()
+
+        fun updateThemeForAll(){
+            tabs.forEach { it.updateTheme() }
+        }
+    }
 
     init {
+        tabs.add(this)
         textArea.text = file.readText()
         textArea.syntaxEditingStyle = TypeRegistry.getSyntax(file.extension)
 //        val provider = TypeRegistry.getCompletionProvider(file.extension)
@@ -34,6 +36,11 @@ class EditorTab(val project: Project, val file: File) : FlatEditorPane() {
 
     fun save() {
         file.writeText(textArea.text)
+    }
+
+    fun dispose(){
+        save()
+        tabs.remove(this)
     }
 
 }

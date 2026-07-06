@@ -15,12 +15,11 @@
  */
 package com.deckerpw.flateditor.gui.components
 
-import com.deckerpw.flateditor.lang.TypeRegistry
+import com.deckerpw.flateditor.fontScale
 import com.formdev.flatlaf.fonts.jetbrains_mono.FlatJetBrainsMonoFont
 import com.formdev.flatlaf.util.FontUtils
 import org.fife.ui.rsyntaxtextarea.ErrorStrip
 import org.fife.ui.rsyntaxtextarea.Style
-import org.fife.ui.rsyntaxtextarea.SyntaxConstants
 import org.fife.ui.rsyntaxtextarea.SyntaxScheme
 import org.fife.ui.rsyntaxtextarea.TextEditorPane
 import org.fife.ui.rtextarea.RTextArea
@@ -92,11 +91,11 @@ open class FlatEditorPane
         editorPanel.add(errorStrip, BorderLayout.LINE_END)
         add(editorPanel, BorderLayout.CENTER)
 
-        updateTheme()
+        this@FlatEditorPane.updateTheme()
     }
 
     fun updateTheme() {
-        val font: Font = createEditorFont(2)
+        val font: Font = createEditorFont(fontScale)
 
         textArea.setFont(font)
         textArea.setBackground(UIManager.getColor("FlatEditorPane.background"))

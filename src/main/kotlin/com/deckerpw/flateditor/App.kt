@@ -8,7 +8,7 @@ import com.deckerpw.poolbox.config.stringConfig
 import org.json.JSONObject
 import java.io.File
 
-val VERSION = (System.getProperty("com.deckerpw.flateditor.VERSION") ?: "0").apply {
+val VERSION = (System.getProperty("VERSION") ?: "0").apply {
     println("Version: $this")
 }
 const val IDENTIFIER = "com.deckerpw.flateditor"
@@ -16,6 +16,7 @@ val poolApp = PoolApp(VERSION,IDENTIFIER)
 private val config = poolApp.config
 
 var theme: String by config.stringConfig("theme","com.formdev.flatlaf.FlatDarkLaf")
+var fontScale: Int by config.intConfig("fontScale",2)
 
 class Layout private constructor(){
 
