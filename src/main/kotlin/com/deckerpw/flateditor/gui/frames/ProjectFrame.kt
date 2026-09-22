@@ -9,6 +9,7 @@ import com.deckerpw.flateditor.gui.components.FlatFileExplorer
 import com.deckerpw.flateditor.gui.components.toolbarButton
 import com.deckerpw.flateditor.lang.TypeRegistry
 import com.deckerpw.flateditor.poolApp
+import com.deckerpw.poolbox.about.AboutDialog
 import com.formdev.flatlaf.FlatClientProperties
 import com.formdev.flatlaf.extras.FlatSVGIcon
 import com.formdev.flatlaf.extras.components.FlatButton
@@ -147,6 +148,12 @@ class ProjectFrame(val project: Project) : JFrame("${project.dir.name} - Flat Ed
                 add(JMenuItem("Check for Updates...").apply {
                     addActionListener {
                         poolApp.updater.checkForUpdates(this@ProjectFrame)
+                    }
+                })
+                addSeparator()
+                add(JMenuItem("About").apply {
+                    addActionListener {
+                        AboutDialog(this@ProjectFrame, poolApp)
                     }
                 })
             })

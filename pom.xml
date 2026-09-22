@@ -6,7 +6,7 @@
 
     <groupId>com.deckerpw.mc</groupId>
     <artifactId>FlatEditor</artifactId>
-    <version>1.2</version>
+    <version>1.3</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -85,7 +85,7 @@
                         <configuration>
 
                             <finalName>${artifactId}-fat-${version}</finalName>
-                            <outputDirectory>${project.build.directory}/fatjars</outputDirectory>
+                            <outputDirectory>${project.build.directory}/fatjars/${version}</outputDirectory>
 
                             <!-- Main-Class -->
                             <transformers>
@@ -106,36 +106,62 @@
                 <version>1.7.1</version>
                 <executions>
                     <execution>
-                        <id>jpackage</id>
+                        <id>jpackage-zip</id>
                         <phase>verify</phase>
                         <goals>
                             <goal>jpackage</goal>
                         </goals>
+                        <configuration>
+                            <name>${artifactId}</name>
+                            <appVersion>${project.version}</appVersion>
+                            <input>${project.build.directory}/fatjars/${version}</input>
+                            <mainJar>${artifactId}-fat-${version}.jar</mainJar>
+                            <mainClass>com.deckerpw.flateditor.MainKt</mainClass>
+                            <runtimeImage>C:\Users\decke\.jdks\corretto-21.0.5</runtimeImage>
+                            <icon>assets/Logo.ico</icon>
+                            <arguments>
+                                <argument>simple</argument>
+                            </arguments>
+                            <javaOptions>
+                                <option>-DVERSION=${version}</option>
+                            </javaOptions>
+
+                            <!-- runtime image -->
+                            <type>APP_IMAGE</type>
+                            <destination>${project.build.directory}/msis/${project.version}</destination>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>jpackage-msi</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jpackage</goal>
+                        </goals>
+                        <configuration>
+
+                            <name>${artifactId}</name>
+                            <appVersion>${project.version}</appVersion>
+                            <input>${project.build.directory}/fatjars/${version}</input>
+                            <mainJar>${artifactId}-fat-${version}.jar</mainJar>
+                            <mainClass>com.deckerpw.flateditor.MainKt</mainClass>
+                            <runtimeImage>C:\Users\decke\.jdks\corretto-21.0.5</runtimeImage>
+                            <winShortcutPrompt>true</winShortcutPrompt>
+                            <icon>assets/Logo.ico</icon>
+                            <winMenu>true</winMenu>
+                            <winMenuGroup>decke</winMenuGroup>
+                            <arguments>
+                                <argument>simple</argument>
+                            </arguments>
+                            <javaOptions>
+                                <option>-DVERSION=${version}</option>
+                            </javaOptions>
+
+                            <!-- runtime image -->
+                            <type>MSI</type>
+                            <destination>${project.build.directory}/msis/${project.version}</destination>
+                        </configuration>
                     </execution>
                 </executions>
-
-                <configuration>
-                    <name>${artifactId}</name>
-                    <appVersion>${project.version}</appVersion>
-                    <input>${project.build.directory}/fatjars</input>
-                    <mainJar>${artifactId}-fat-${version}.jar</mainJar>
-                    <mainClass>com.deckerpw.flateditor.MainKt</mainClass>
-                    <runtimeImage>C:\Users\decke\.jdks\corretto-21.0.5</runtimeImage>
-                    <!--                    <winShortcutPrompt>true</winShortcutPrompt>-->
-                    <icon>assets/Logo.ico</icon>
-                    <!--                    <winMenu>true</winMenu>-->
-                    <!--                    <winMenuGroup>decke</winMenuGroup>-->
-                    <arguments>
-                        <argument>simple</argument>
-                    </arguments>
-                    <javaOptions>
-                        <option>-DVERSION=${version}</option>
-                    </javaOptions>
-
-                    <!-- runtime image -->
-                    <type>APP_IMAGE</type>
-                    <destination>${project.build.directory}/msis/${project.version}</destination>
-                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -165,13 +191,6 @@
             <version>3.6.2</version>
             <scope>compile</scope>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.fifesoft</groupId>-->
-<!--            <artifactId>languagesupport</artifactId>-->
-<!--            <version>3.4.1</version>-->
-<!--            <scope>compile</scope>-->
-<!--        </dependency>-->
-        <!-- Source: https://mvnrepository.com/artifact/com.fifesoft/autocomplete -->
         <dependency>
             <groupId>com.fifesoft</groupId>
             <artifactId>autocomplete</artifactId>
@@ -183,11 +202,11 @@
             <artifactId>PoolBox</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>com.deckerpw.flateditor.lang</groupId>-->
-        <!--            <artifactId>JavaLanguageSupport</artifactId>-->
-        <!--            <version>1.0</version>-->
-        <!--        </dependency>-->
+        <dependency>
+            <groupId>com.deckerpw.flateditor.lang</groupId>
+            <artifactId>JavaLanguageSupport</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>com.formdev</groupId>
             <artifactId>flatlaf-fonts-jetbrains-mono</artifactId>

@@ -2,6 +2,7 @@ package com.deckerpw.flateditor.gui.components
 
 import com.deckerpw.flateditor.data.Project
 import com.deckerpw.flateditor.lang.TypeRegistry
+import com.deckerpw.flateditor.lang.java.JavaLanguageSupport
 import java.io.File
 
 class EditorTab(val project: Project, val file: File) : FlatEditorPane() {
@@ -32,6 +33,11 @@ class EditorTab(val project: Project, val file: File) : FlatEditorPane() {
 //        LanguageSupportFactory.get().apply {
 //            println((getSupportFor(SyntaxConstants.SYNTAX_STYLE_JAVA) as JavaLanguageSupport).jarManager.addCurrentJreClassFileSource())
 //        }.register(textArea)
+
+        JavaLanguageSupport().apply {
+            jarManager.addCurrentJreClassFileSource()
+            install(textArea)
+        }
     }
 
     fun save() {

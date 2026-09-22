@@ -2,7 +2,9 @@ package com.deckerpw.flateditor.gui.frames
 
 import com.deckerpw.flateditor.data.Project
 import com.deckerpw.flateditor.data.ProjectData
+import com.deckerpw.flateditor.poolApp
 import com.deckerpw.flateditor.simple
+import com.deckerpw.poolbox.about.AboutDialog
 import com.formdev.flatlaf.FlatClientProperties
 import com.formdev.flatlaf.FlatLaf
 import com.formdev.flatlaf.extras.FlatSVGIcon
@@ -59,7 +61,19 @@ class StartFrame : JFrame("Flat Editor") {
             setLocationRelativeTo(null)
             layout = BorderLayout()
             jMenuBar = JMenuBar().apply {
-                add(JMenu("About"))
+                add(JMenu("Help").apply {
+                    add(JMenuItem("Check for Updates...").apply {
+                        addActionListener {
+                            poolApp.updater.checkForUpdates(this@StartFrame)
+                        }
+                    })
+                    addSeparator()
+                    add(JMenuItem("About").apply {
+                        addActionListener {
+                            AboutDialog(this@StartFrame, poolApp)
+                        }
+                    })
+                })
             }
 
             val root = HistoryTreeNode(HistoryNode("Projects", true))
