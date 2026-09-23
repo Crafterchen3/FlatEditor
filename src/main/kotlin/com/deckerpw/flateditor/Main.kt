@@ -3,6 +3,7 @@ package com.deckerpw.flateditor
 import com.deckerpw.flateditor.data.Project
 import com.deckerpw.flateditor.data.activeProjects
 import com.deckerpw.flateditor.gui.frames.StartFrame
+import com.deckerpw.flateditor.jdk.JmodsSetup
 import com.formdev.flatlaf.FlatLaf
 import java.io.File
 import javax.swing.JFileChooser
@@ -18,6 +19,10 @@ fun main(args: Array<String>) {
     applyLookAndFeel()
     UIManager.put( "TitlePane.unifiedBackground", false);
     _simple = args.contains("simple")
+    // Ensure JDK modules are available: checks java.home/jmods first, otherwise
+    // prepares bundled jmods from resources (com/deckerpw/flateditor/jdk/jmods)
+    // Shows a small progress dialog only if bundled extraction is required
+    JmodsSetup.ensureJmods()
     StartFrame()
     //Project(File("run/picasso"), "App")
     //UIManager.put("Tree.showDefaultIcon", false)

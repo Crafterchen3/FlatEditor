@@ -1,16 +1,17 @@
 package com.deckerpw.flateditor.gui.components
 
 import com.deckerpw.flateditor.data.Project
+import com.deckerpw.flateditor.jdk.JmodsSetup
 import com.deckerpw.flateditor.lang.TypeRegistry
 import com.deckerpw.flateditor.lang.java.JavaLanguageSupport
 import java.io.File
 
 class EditorTab(val project: Project, val file: File) : FlatEditorPane() {
 
-    companion object{
+    companion object {
         val tabs = mutableListOf<EditorTab>()
 
-        fun updateThemeForAll(){
+        fun updateThemeForAll() {
             tabs.forEach { it.updateTheme() }
         }
     }
@@ -34,17 +35,32 @@ class EditorTab(val project: Project, val file: File) : FlatEditorPane() {
 //            println((getSupportFor(SyntaxConstants.SYNTAX_STYLE_JAVA) as JavaLanguageSupport).jarManager.addCurrentJreClassFileSource())
 //        }.register(textArea)
 
-        JavaLanguageSupport().apply {
-            jarManager.addCurrentJreClassFileSource()
-            install(textArea)
+        if (file.extension == "java") {
+            JavaLanguageSupport().apply {
+                // Try system jmods first, fallback to bundled resources
+                // LibraryInfo.getMainJreJarInfo() already falls back to bundled, but we prefer
+                // explicit handling via JmodsSetup to ensure progress dialog is shown correctly
+                val jdkInfo = JmodsSetup.getMainJdkLibraryInfo()
+                if (jdkInfo != null) {
+                    try {
+                        jarManager.addClassFileSource(jdkInfo)
+                    } catch (e: Exception) {
+                        e.printStackTrace(); jarManager.addCurrentJreClassFileSource()
+                    }
+                } else {
+                    jarManager.addCurrentJreClassFileSource()
+                }
+                install(textArea)
+            }
         }
+
     }
 
     fun save() {
         file.writeText(textArea.text)
     }
 
-    fun dispose(){
+    fun dispose() {
         save()
         tabs.remove(this)
     }
