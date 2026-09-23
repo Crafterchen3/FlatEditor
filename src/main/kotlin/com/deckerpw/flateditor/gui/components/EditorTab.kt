@@ -1,7 +1,7 @@
 package com.deckerpw.flateditor.gui.components
 
 import com.deckerpw.flateditor.data.Project
-import com.deckerpw.flateditor.jdk.JmodsSetup
+import com.deckerpw.flateditor.lang.java.JmodsSetup
 import com.deckerpw.flateditor.lang.TypeRegistry
 import com.deckerpw.flateditor.lang.java.JavaLanguageSupport
 import java.io.File

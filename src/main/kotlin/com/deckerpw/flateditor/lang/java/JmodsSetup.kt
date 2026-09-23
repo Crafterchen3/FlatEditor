@@ -1,4 +1,4 @@
-package com.deckerpw.flateditor.jdk
+package com.deckerpw.flateditor.lang.java
 
 import com.deckerpw.flateditor.lang.java.buildpath.LibraryInfo
 import java.io.File

@@ -1,14 +1,10 @@
 package com.deckerpw.flateditor
 
-import com.deckerpw.flateditor.data.Project
 import com.deckerpw.flateditor.data.activeProjects
 import com.deckerpw.flateditor.gui.frames.StartFrame
-import com.deckerpw.flateditor.jdk.JmodsSetup
+import com.deckerpw.flateditor.lang.java.JmodsSetup
 import com.formdev.flatlaf.FlatLaf
-import java.io.File
-import javax.swing.JFileChooser
 import javax.swing.UIManager
-import kotlin.properties.Delegates
 
 private var _simple = false;
 val simple: Boolean get() = _simple
